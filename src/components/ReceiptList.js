@@ -22,7 +22,7 @@ const ReceiptList = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://localhost:5001/receipts');
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/receipts`);
             setReceipts(response.data);
         } catch (error) {
             console.error('Error fetching receipts:', error);
@@ -50,7 +50,7 @@ const ReceiptList = () => {
 
     const handleDeleteConfirm = async () => {
         try {
-            await axios.delete(`http://localhost:5001/receipts/${receiptToDelete._id}`);
+            await axios.delete(`${process.env.REACT_APP_API_URL}/receipts/${receiptToDelete._id}`);
             setReceipts(receipts.filter(r => r._id !== receiptToDelete._id));
             if (selectedReceipt && selectedReceipt._id === receiptToDelete._id) {
                 setSelectedReceipt(null); // Clear the selected receipt if it was deleted

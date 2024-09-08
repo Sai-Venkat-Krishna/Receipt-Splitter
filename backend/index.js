@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load environment variables from .env
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const { DocumentAnalysisClient, AzureKeyCredential } = require('@azure/ai-form-recognizer');
@@ -13,19 +15,22 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
-// Azure Form Recognizer setup
+// Azure Form Recognizer setup using environment variables
 const client = new DocumentAnalysisClient(
-    'https://scanreceipt.cognitiveservices.azure.com/',
-    new AzureKeyCredential('3c187e300dc34d5c9e749b4a837cf998')
+    process.env.AZURE_ENDPOINT,
+    new AzureKeyCredential(process.env.AZURE_API_KEY)
 );
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/receipts', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
+
+// Rest of the code (routes, server setup) remains unchanged...
+
 
 // Helper function to process receipt items including tax and discounts
 function processReceiptItems(receiptItems, taxAmount, discountAmount) {

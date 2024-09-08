@@ -20,7 +20,7 @@ const ReceiptDisplay = ({ receipt, onUpdateReceipt }) => {
         };
 
         try {
-            const response = await axios.put(`http://localhost:5001/receipts/${receipt._id}`, updatedReceipt);
+            const response = await axios.put(`${process.env.REACT_APP_API_URL}/receipts/${receipt._id}`, updatedReceipt);
             onUpdateReceipt(response.data); // Update receipt in the parent component
         } catch (error) {
             console.error('Error saving changes:', error);
