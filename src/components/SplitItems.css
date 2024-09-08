@@ -1,0 +1,51 @@
+/* src/components/SplitItems.css */
+.split-items {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.friends-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.friends-list input {
+    flex: 1;
+    min-width: 150px;
+}
+
+.split-items table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.split-items th, .split-items td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.split-items th {
+    background-color: #f2f2f2;
+}
+
+.totals {
+    background-color: #e8f5e9;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.totals ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.totals li {
+    margin-bottom: 5px;
+}

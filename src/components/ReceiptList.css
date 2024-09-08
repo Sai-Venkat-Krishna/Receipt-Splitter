@@ -1,0 +1,61 @@
+/* src/components/ReceiptList.css */
+.receipt-list {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.receipt-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* src/components/ReceiptList.css (continued) */
+.receipt-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.receipt-list li:hover {
+    background-color: #f5f5f5;
+}
+
+.receipt-list li:last-child {
+    border-bottom: none;
+}
+
+.selected-receipt {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+.error-message {
+    color: #d32f2f;
+    margin-top: 10px;
+}
+
+/* Add to src/components/ReceiptList.css */
+.receipt-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-button {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #b71c1c;
+}
