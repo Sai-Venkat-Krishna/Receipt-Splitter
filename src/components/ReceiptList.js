@@ -19,14 +19,12 @@ const ReceiptList = () => {
     }, []);
 
     const fetchReceipts = async () => {
-        setIsLoading(true);
-        setError(null);
         try {
             const response = await axios.get('/api/receipts');
             setReceipts(response.data);
         } catch (error) {
             console.error('Error fetching receipts:', error);
-            setError('Failed to fetch receipts. Please try again.');
+            setError('Failed to fetch receipts');
         } finally {
             setIsLoading(false);
         }
@@ -47,6 +45,7 @@ const ReceiptList = () => {
             setReceiptToDelete(null);
         }
     };
+
 
     return (
         <div className="receipt-list">
