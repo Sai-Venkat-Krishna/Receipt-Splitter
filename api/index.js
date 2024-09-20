@@ -29,10 +29,6 @@ mongoose.connect(process.env.MONGODB_URI, {
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch(err => console.error('Error connecting to MongoDB Atlas:', err));
 
-// Rest of the code (routes, server setup) remains unchanged...
-
-
-
 // Helper function to process receipt items including tax and discounts
 function processReceiptItems(receiptItems, taxAmount, discountAmount) {
     let items = receiptItems.map((item, index) => {
@@ -45,7 +41,7 @@ function processReceiptItems(receiptItems, taxAmount, discountAmount) {
             description = `Item ${index + 1}${totalPrice ? ` ($${totalPrice.toFixed(2)})` : ''}`;
         }
 
-        const weightMatch = description.match(/(\d+(?:\.\d+)?)\s*(lb|oz|g)/i);
+        const weightMatch = description.match(/(\\d+(?:\\.\\d+)?)\\s*(lb|oz|g)/i);
         let isWeighted = !!weightMatch;
         if (isWeighted) {
             quantity = parseFloat(weightMatch[1]);
@@ -54,7 +50,7 @@ function processReceiptItems(receiptItems, taxAmount, discountAmount) {
             }
         }
 
-        const perUnitMatch = description.match(/(\d+(?:\.\d+)?)\s*@\s*(\d+(?:\.\d+)?)/);
+        const perUnitMatch = description.match(/(\\d+(?:\\.\\d+)?)\\s*@\\s*(\\d+(?:\\.\\d+)?)/);
         if (perUnitMatch) {
             quantity = parseFloat(perUnitMatch[1]);
             price = parseFloat(perUnitMatch[2]);
@@ -207,7 +203,6 @@ app.put('/receipts/:id', async (req, res) => {
         res.status(500).send({ error: 'Failed to update receipt' });
     }
 });
-
 
 // Start server
 module.exports = app;

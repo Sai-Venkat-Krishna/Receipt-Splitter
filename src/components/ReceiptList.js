@@ -22,7 +22,7 @@ const ReceiptList = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/receipts`);
+            const response = await axios.get('/receipts');
             setReceipts(response.data);
         } catch (error) {
             console.error('Error fetching receipts:', error);
@@ -32,28 +32,12 @@ const ReceiptList = () => {
         }
     };
 
-    const handleReceiptSelect = (receipt) => {
-        setSelectedReceipt(receipt); // Only one receipt can be selected at a time
-    };
-
-    const handleReceiptUpdate = (updatedReceipt) => {
-        setReceipts((prevReceipts) =>
-            prevReceipts.map((r) => (r._id === updatedReceipt._id ? updatedReceipt : r))
-        );
-        setSelectedReceipt(updatedReceipt); // Ensure the selected receipt state updates
-    };
-
-    const handleDeleteClick = (receipt) => {
-        setReceiptToDelete(receipt);
-        setIsDeleteModalOpen(true);
-    };
-
     const handleDeleteConfirm = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/receipts/${receiptToDelete._id}`);
+            await axios.delete(`/receipts/${receiptToDelete._id}`);
             setReceipts(receipts.filter(r => r._id !== receiptToDelete._id));
             if (selectedReceipt && selectedReceipt._id === receiptToDelete._id) {
-                setSelectedReceipt(null); // Clear the selected receipt if it was deleted
+                setSelectedReceipt(null);
             }
         } catch (error) {
             console.error('Error deleting receipt:', error);
@@ -72,18 +56,17 @@ const ReceiptList = () => {
             <ul>
                 {receipts.map((receipt) => (
                     <li key={receipt._id}>
-                        <span onClick={() => handleReceiptSelect(receipt)}>
+                        <span onClick={() => setSelectedReceipt(receipt)}>
                             {receipt.name} - {new Date(receipt.date).toLocaleDateString()}
                         </span>
-                        <button className="delete-button" onClick={() => handleDeleteClick(receipt)}>Delete</button>
+                        <button className="delete-button" onClick={() => setIsDeleteModalOpen(true)}>Delete</button>
                     </li>
                 ))}
             </ul>
 
             {selectedReceipt && (
                 <div className="selected-receipt">
-                    {/* Ensure only one ReceiptDisplay and SplitItems are shown at a time */}
-                    <ReceiptDisplay key={selectedReceipt._id} receipt={selectedReceipt} onUpdateReceipt={handleReceiptUpdate} />
+                    <ReceiptDisplay key={selectedReceipt._id} receipt={selectedReceipt} />
                     <SplitItems key={selectedReceipt._id} receipt={selectedReceipt} />
                 </div>
             )}
