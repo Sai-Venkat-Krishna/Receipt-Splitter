@@ -96,10 +96,6 @@ function processReceiptItems(receiptItems, taxAmount, discountAmount) {
     return items.filter(item => item.totalPrice !== 0 || item.description.toUpperCase() === 'TAX');
 }
 
-// Add this above the other routes
-app.get('/', (req, res) => {
-    res.send('Welcome to the Receipt Splitter API!');
-});
 
 // Updated route for receipt processing
 app.post('/process-receipt', async (req, res) => {
