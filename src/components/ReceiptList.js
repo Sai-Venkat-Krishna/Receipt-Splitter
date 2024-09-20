@@ -22,7 +22,7 @@ const ReceiptList = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await axios.get('/receipts');
+            const response = await axios.get('/api/receipts');
             setReceipts(response.data);
         } catch (error) {
             console.error('Error fetching receipts:', error);
@@ -34,7 +34,7 @@ const ReceiptList = () => {
 
     const handleDeleteConfirm = async () => {
         try {
-            await axios.delete(`/receipts/${receiptToDelete._id}`);
+            await axios.delete(`/api/receipts/${receiptToDelete._id}`);
             setReceipts(receipts.filter(r => r._id !== receiptToDelete._id));
             if (selectedReceipt && selectedReceipt._id === receiptToDelete._id) {
                 setSelectedReceipt(null);
