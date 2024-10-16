@@ -27,8 +27,9 @@ const UploadReceipt = () => {
         const reader = new FileReader();
         reader.onloadend = async () => {
             const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
+            console.log('Uploading receipt:', base64String);
             try {
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}/process-receipt`, {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/receipts/process-receipt`, {
                     image: base64String
                 });
                 setReceipt(response.data);
