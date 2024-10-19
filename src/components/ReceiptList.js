@@ -6,6 +6,10 @@ import Loading from './Loading';
 import ConfirmModal from './ConfirmModal';
 import './ReceiptList.css';
 
+// Set up the API URL based on the environment
+const apiUrl = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_NETWORK : process.env.REACT_APP_API_URL_LOCAL;
+
+
 const ReceiptList = () => {
     const [receipts, setReceipts] = useState([]);
     const [selectedReceipt, setSelectedReceipt] = useState(null);
@@ -22,7 +26,7 @@ const ReceiptList = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/receipts`);
+            const response = await axios.get(`${apiUrl}/receipts`);
             setReceipts(response.data);
         } catch (error) {
             console.error('Error fetching receipts:', error);
@@ -50,7 +54,7 @@ const ReceiptList = () => {
 
     const handleDeleteConfirm = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/receipts/${receiptToDelete._id}`);
+            await axios.delete(`${apiUrl}/receipts/${receiptToDelete._id}`);
             setReceipts(receipts.filter(r => r._id !== receiptToDelete._id));
             if (selectedReceipt && selectedReceipt._id === receiptToDelete._id) {
                 setSelectedReceipt(null); // Clear the selected receipt if it was deleted

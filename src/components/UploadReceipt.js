@@ -4,6 +4,9 @@ import ReceiptDisplay from './ReceiptDisplay';
 import SplitItems from './SplitItems';
 import './UploadReceipt.css';
 
+// Set up the API URL based on the environment
+const apiUrl = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_NETWORK : process.env.REACT_APP_API_URL_LOCAL;
+
 const UploadReceipt = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [receipt, setReceipt] = useState(null);
@@ -29,7 +32,7 @@ const UploadReceipt = () => {
             const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
             console.log('Uploading receipt:', base64String);
             try {
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}/receipts/process-receipt`, {
+                const response = await axios.post(`${apiUrl}/receipts/process-receipt`, {
                     image: base64String
                 });
                 setReceipt(response.data);

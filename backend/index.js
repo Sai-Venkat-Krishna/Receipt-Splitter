@@ -53,6 +53,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+app.listen(5001, '0.0.0.0', () => {
+    console.log('Server running on port 5001');
 });

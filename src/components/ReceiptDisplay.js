@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './ReceiptDisplay.css';
 
+// Set up the API URL based on the environment
+const apiUrl = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_NETWORK : process.env.REACT_APP_API_URL_LOCAL;
+
+
 const ReceiptDisplay = ({ receipt, onUpdateReceipt }) => {
     const [isEditing, setIsEditing] = useState(null); // Track which item is being edited
     const [editedItems, setEditedItems] = useState(receipt.items);
@@ -20,7 +24,7 @@ const ReceiptDisplay = ({ receipt, onUpdateReceipt }) => {
         };
 
         try {
-            const response = await axios.put(`${process.env.REACT_APP_API_URL}/receipts/${receipt._id}`, updatedReceipt);
+            const response = await axios.put(`${apiUrl}/receipts/${receipt._id}`, updatedReceipt);
             onUpdateReceipt(response.data); // Update receipt in the parent component
         } catch (error) {
             console.error('Error saving changes:', error);
